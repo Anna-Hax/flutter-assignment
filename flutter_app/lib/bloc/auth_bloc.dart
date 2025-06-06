@@ -21,6 +21,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+    on<SignupRequested>((event, emit) async {
+      emit(AuthLoading());
+      try{
+        final authModel = await authService.login(
+          email: event.email,
+          password: event.password,
+        );
+        emit(AuthAuthenticated(authModel.email));
+      } catch (error) {
+        emit(AuthError("Signup failed"));
+      }
+    });
+
     on<LogoutRequested>((event, emit) async {
       await authService.logout();
       emit(AuthUnauthenticated());
