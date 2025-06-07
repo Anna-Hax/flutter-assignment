@@ -1,13 +1,28 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	//"github.com/golang-jwt/jwt/v5"
+    "backend/config"
+    "backend/routes"
+
+    "github.com/gin-gonic/gin"
+    "github.com/joho/godotenv"
+    "log"
+	_ "modernc.org/sqlite" 
 )
+
+func init() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+}
+
 func main() {
     r := gin.Default()
-    r.POST("/auth/signup", SignUp)
-	r.POST("/course/add", addCourse)
-	r.POST("/course/get_all", fetchAllCourse)
-    r.Run(":8080") 
+
+    config.ConnectDatabase()
+
+    routes.RegisterRoutes(r)
+
+    r.Run(":8080")
 }
