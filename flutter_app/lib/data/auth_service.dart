@@ -8,7 +8,7 @@ class AuthService {
 
   //login
   Future<AuthModel> login({required String email, required String password}) async {
-    final response = await _dio.post('http://localhost:8080/auth/login',
+    final response = await _dio.post('http://192.168.1.7:8080/auth/login',
       data: {
         "email": email,
         "password": password,
@@ -28,7 +28,7 @@ class AuthService {
 
   //signup
   Future<AuthModel> signup({required String email, required String password}) async {
-    final response = await _dio.post('http://localhost:8080/auth/signup',
+    final response = await _dio.post('http://192.168.1.7:8080/auth/signup',
       data: {
         "email": email,
         "password": password,

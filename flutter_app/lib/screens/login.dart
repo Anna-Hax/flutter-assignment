@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/auth_bloc.dart';
-import 'package:flutter_app/bloc/auth_event.dart';
-import 'package:flutter_app/bloc/auth_state.dart';
+import 'package:flutter_app/bloc/auth/auth_bloc.dart';
+import 'package:flutter_app/bloc/auth/auth_event.dart';
+import 'package:flutter_app/bloc/auth/auth_state.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

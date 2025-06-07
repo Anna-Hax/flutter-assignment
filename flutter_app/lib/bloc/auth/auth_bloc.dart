@@ -1,5 +1,5 @@
-import 'package:flutter_app/bloc/auth_event.dart';
-import 'package:flutter_app/bloc/auth_state.dart';
+import 'package:flutter_app/bloc/auth/auth_event.dart';
+import 'package:flutter_app/bloc/auth/auth_state.dart';
 import 'package:flutter_app/data/auth_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignupRequested>((event, emit) async {
       emit(AuthLoading());
       try{
-        final authModel = await authService.login(
+        final authModel = await authService.signup(
           email: event.email,
           password: event.password,
         );

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bloc/auth_bloc.dart';
-import 'package:flutter_app/bloc/auth_event.dart';
-import 'package:flutter_app/bloc/auth_state.dart';
+import 'package:flutter_app/bloc/auth/auth_bloc.dart';
+import 'package:flutter_app/bloc/auth/auth_event.dart';
+import 'package:flutter_app/bloc/auth/auth_state.dart';
 import 'package:flutter_app/screens/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignupScreen extends StatelessWidget{
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
-
   SignupScreen({super.key});
 
   @override
@@ -29,7 +28,7 @@ class SignupScreen extends StatelessWidget{
           child: Column(
             children: [
               TextField(controller: emailCtrl, decoration: InputDecoration(labelText: "Email")),
-              TextField(controller: emailCtrl, obscureText: true, decoration: InputDecoration(labelText: "Password")),
+              TextField(controller: passCtrl, obscureText: true, decoration: InputDecoration(labelText: "Password")),
               ElevatedButton(
                 onPressed: (){
                   context.read<AuthBloc>().add(SignupRequested(emailCtrl.text, passCtrl.text));
