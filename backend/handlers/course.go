@@ -38,15 +38,20 @@ func CreateCourse(c *gin.Context) {
 }
 
 func FetchMyCourse(c *gin.Context) {
-	user_id := c.GetHeader("user_id")
-	course := models.MyCourse{}
-	if err := config.DB.Where("user_id = ?", user_id).Find(&course).Error; err != nil{
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+    user_id := c.GetHeader("user_id")
+    var courses []models.MyCourse // Slice to hold multiple records
 
-	c.JSON(http.StatusOK, course)
+    if err := config.DB.Where("user_id = ?", user_id).Find(&courses).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+	var mycourses []string
+	for _, element := range courses {
+		mycourses = append(mycourses, element.Course)
+	}
+    c.JSON(http.StatusOK, mycourses)
 }
+
 
 func FetchAllCourse(c *gin.Context) {
 	var courses []models.AllCourse
@@ -54,7 +59,11 @@ func FetchAllCourse(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	} else {
-		c.JSON(http.StatusOK, courses)
+		var allcourses []string
+		for _, element := range courses {
+			allcourses = append(allcourses, element.Course)
+		}
+    	c.JSON(http.StatusOK, allcourses)
 	}
 
 	
