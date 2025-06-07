@@ -8,7 +8,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
 
   CourseBloc(this.courseService) : super(CourseInitial()){
     on<AddCourse>((event, emit) async {
-      emit(CourseLoading());
+      emit(AddingCourse());
       try{
         // ignore: unused_local_variable
         final courseModel = await courseService.addCourse(course: event.course);

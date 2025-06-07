@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget{
     return BlocProvider(
       create: (_) => AuthBloc(authService)..add(CheckLoginStatus()),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state){
             if (state is AuthAuthenticated) return HomeScreen();

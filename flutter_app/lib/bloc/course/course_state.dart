@@ -6,13 +6,19 @@ class CourseInitial extends CourseState{}
 
 class CourseLoading extends CourseState{} 
 
+class AllCourseLoaded extends CourseState {
+  final List<AllCourseModel> course;
 
-
-class CourseLoaded extends CourseState {
-  final List<CourseModel> course;
-
-  CourseLoaded(this.course);
+  AllCourseLoaded(this.course);
 }
+
+class MyCourseLoaded extends CourseState {
+  final List<AllCourseModel> course;
+
+  MyCourseLoaded(this.course);
+}
+
+class AddingCourse extends CourseState {}
 
 class CourseAdded extends CourseState {}
 
