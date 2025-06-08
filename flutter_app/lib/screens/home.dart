@@ -78,33 +78,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               
-              // Quick Stats Cards
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: [
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: _buildStatCard(
-                        "Enrolled Courses",
-                        "5",
-                        Icons.school,
-                        Colors.green,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child: _buildStatCard(
-                        "TotalCourses",
-                        "3",
-                        Icons.play_arrow,
-                        Colors.orange,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              
               SizedBox(height: 30),
               
               // Main Actions
@@ -191,40 +164,40 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.2),
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, color: Colors.white, size: 24),
-          SizedBox(height: 8),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white70,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ],
-      ),
-    );
-  }
-
+//  Widget _buildStatCard(String title, String value, IconData icon, Color color) {
+//    return Container(
+//      padding: EdgeInsets.all(16),
+//      decoration: BoxDecoration(
+//        color: Colors.white.withValues(alpha: 0.2),
+//        borderRadius: BorderRadius.circular(16),
+//        border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+//      ),
+//      child: Column(
+//        mainAxisSize: MainAxisSize.min,
+//        children: [
+//          Icon(icon, color: Colors.white, size: 24),
+//          SizedBox(height: 8),
+//          Text(
+//            value,
+//            style: TextStyle(
+//              fontSize: 20,
+//              fontWeight: FontWeight.bold,
+//              color: Colors.white,
+//            ),
+//          ),
+//          Text(
+//            title,
+//            style: TextStyle(
+//              fontSize: 12,
+//              color: Colors.white70,
+//            ),
+//            textAlign: TextAlign.center,
+//          ),
+//        ],
+//      ),
+//    );
+//  }
+//
   Widget _buildActionCard(String title, IconData icon, Color color, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,

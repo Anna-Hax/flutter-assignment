@@ -9,7 +9,7 @@ class CourseService {
 
   //get Courses
   
-  Future<void> addMyCourse({required String course, required int? userId}) async {
+  Future<String> addMyCourse({required String course, required int? userId}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       final storedUserId = prefs.getInt('id') ?? userId;
@@ -26,7 +26,8 @@ class CourseService {
         _logger.e("Failed to add course. Status code: ${response.statusCode}, Body: ${response.data}");
         throw Exception("Course not added. Try again.");
       }
-
+      String data = response.data;
+      return data; 
     } catch (error, stackTrace) {
       _logger.e("Exception while adding course", error: error, stackTrace: stackTrace);
       rethrow;

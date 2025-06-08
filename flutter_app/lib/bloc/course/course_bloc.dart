@@ -20,11 +20,12 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
         emit(CourseError("Adding Course Error!"));
       }
     });
-    on<AllCourseRequested>((event, emit) async {
-      emit(CourseLoading());
+    on<RemoveCourse>((event, emit) async {
+      emit(RemovingCourse());
       try {
-        final courseNames = await courseService.fetchAllCourse();
-        emit(AllCourseLoaded(courseNames));
+        // ignore: unused_local_variable
+        final courseNames = await courseService.removeMyCourse(course: event.course);
+        emit(RemovedCourse());
       } catch (error) {
         emit(CourseError("Problem in Fetching your courses"));
       }
@@ -41,16 +42,15 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
         emit(CourseError("Problem in Fetching your courses"));
       }
     });
-   
-    on<RemoveCourse>((event, emit) async {
-      emit(RemovingCourse());
+    on<AllCourseRequested>((event, emit) async {
+      emit(CourseLoading());
       try {
-        // ignore: unused_local_variable
-        final courseNames = await courseService.removeMyCourse(course: event.course);
-        emit(RemovedCourse());
+        final courseNames = await courseService.fetchAllCourse();
+        emit(AllCourseLoaded(courseNames));
       } catch (error) {
         emit(CourseError("Problem in Fetching your courses"));
       }
     });
+    
   }
 }
