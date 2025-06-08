@@ -1,43 +1,43 @@
 class AllCourseModel {
   final int id;
-  final String name;
+  final String course;
 
   AllCourseModel({
     required this.id,
-    required this.name,
+    required this.course,
   });
 
   factory AllCourseModel.fromJson(Map<String, dynamic> json) {
     return AllCourseModel(
       id: json['id'],
-      name: json['name'],
+      course: json['course'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'name': name,
+    'name': course,
   };
 }
 
 class MyCourseModel {
   final int id;
-  final String name;
+  final String course;
 
   MyCourseModel({
     required this.id,
-    required this.name,
+    required this.course,
   });
 
   factory MyCourseModel.fromJson(Map<String, dynamic> json) {
     return MyCourseModel(
       id: json['id'],
-      name: json['name'],
+      course: json['course'],
     );
   }
 
   Map<String, dynamic> toJson() => {
     'id': id,
-    'name': name,
+    'name': course,
   };
 }

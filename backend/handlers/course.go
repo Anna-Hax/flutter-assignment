@@ -45,28 +45,28 @@ func FetchMyCourse(c *gin.Context) {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
-	//var mycourses []string
-	//for _, element := range courses {
-	//	mycourses = append(mycourses, element.Course)
-	//}
-    c.JSON(http.StatusOK, courses)
+	var mycourses []string
+	for _, element := range courses {
+		mycourses = append(mycourses, element.Course)
+	}
+    c.JSON(http.StatusOK, mycourses)
 }
 
 
 func FetchAllCourse(c *gin.Context) {
-	var courses []models.AllCourse
-	if err := config.DB.Find(&courses).Error; err != nil{
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	} else {
-		//var allcourses []string
-		//for _, element := range courses {
-		//	allcourses = append(allcourses, element.Course)
-		//}
-    	c.JSON(http.StatusOK, courses)
-	}
+   
+    var courses []models.AllCourse 
 
-	
+    if err := config.DB.Find(&courses).Error; err != nil {
+        c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+        return
+    }
+	var mycourses []string
+	for _, element := range courses {
+		mycourses = append(mycourses, element.Course)
+	}
+    c.JSON(http.StatusOK, mycourses)
+
 }
 
 

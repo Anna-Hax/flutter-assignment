@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/auth/auth_bloc.dart';
 import 'package:flutter_app/bloc/auth/auth_event.dart';
-import 'package:flutter_app/screens/see_courses.dart';
+import 'package:flutter_app/screens/choose_courses.dart';
+import 'package:flutter_app/screens/see_mycourses.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -145,7 +146,7 @@ class HomeScreen extends StatelessWidget {
                                 Colors.purple,
                                 () { 
                                     Navigator.of(context).push(
-                                    MaterialPageRoute(builder: (context) => SeeCoursesScreen()));
+                                    MaterialPageRoute(builder: (context) => ChooseCoursesScreen()));
                                 },
                               ),
                               _buildActionCard(
@@ -153,7 +154,8 @@ class HomeScreen extends StatelessWidget {
                                 Icons.book,
                                 Colors.indigo,
                                 () {
-                                  // Navigate to enrolled courses
+                                  Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) => SeeMyCoursesScreen()));
                                 },
                               ),
                               

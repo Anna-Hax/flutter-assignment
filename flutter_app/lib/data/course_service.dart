@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/models/course_model.dart';
+//import 'package:flutter_app/models/course_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:logger/logger.dart';
 
 class CourseService {
   final Dio _dio = Dio();
+  final Logger _logger = Logger();
 
   //get Courses
   
@@ -23,29 +25,43 @@ class CourseService {
     }
   }
 
-  Future<AllCourseModel> fetchAllCourse({required String course}) async {
-  
-    final response = await _dio.post('http://192.168.1.7:8080/course/get');
+  Future<List<String>> fetchAllCourse() async {
+    try {
+      final response = await _dio.post('http://192.168.1.7:8080/course/get');
 
-    if (response.statusCode != 200) {
-      throw Exception("Courses can't be fetched");
-    } else {
-      final model = AllCourseModel.fromJson(response.data);
-      return model;
+      if (response.statusCode != 200) {
+        throw Exception("Courses can't be fetched");
+      }
+      final List<dynamic> data = response.data;
+      return data.cast<String>();
+    } catch (error, stackTrace) {
+      _logger.e("Error occurred", error: error, stackTrace: stackTrace);
+      rethrow;
     }
   }
 
-  Future<AllCourseModel> fetchMyCourse({required String course}) async {
-  
-    final response = await _dio.post('http://192.168.1.7:8080/course/user/get');
+  Future<List<String>> fetchMyCourse({required int? userId}) async {
+    try {
+      final response = await _dio.post(
+        'http://192.168.1.7:8080/course/user/get',
+        options: Options(
+        headers: {
+          'user_id': userId, 
+          },
+        ),
+      );
 
-    if (response.statusCode != 200) {
-      throw Exception("Courses can't be fetched");
-    } else {
-      final model = AllCourseModel.fromJson(response.data);
-      return model;
+      if (response.statusCode != 200) {
+        throw Exception("Courses can't be fetched");
+      }
+      final List<dynamic> data = response.data;
+      return data.cast<String>();
+    } catch (error, stackTrace) {
+      _logger.e("Error occurred", error: error, stackTrace: stackTrace);
+      rethrow;
     }
   }
+ 
 }
 
 

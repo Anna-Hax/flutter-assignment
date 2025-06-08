@@ -39,23 +39,13 @@ class AuthService {
           "password": password,
         },
       );
-      
-      _logger.i("Received response with status: ${response.statusCode}");
 
       if (response.statusCode == 200) {
-        _logger.d("Parsing response data: ${response.data}");
         final model = AuthModel.fromJson(response.data);
-        
-        _logger.i("Getting SharedPreferences instance");
         final pref = await SharedPreferences.getInstance();
-        
-        _logger.i("Storing user ID: ${model.id}");
         await pref.setInt('id', model.id);
-        
-        _logger.i("Signup completed successfully");
         return model;
       } else {
-        _logger.w("Signup failed with status: ${response.statusCode}");
         throw Exception("Signup failed");
       }
     } catch (e, stackTrace) {

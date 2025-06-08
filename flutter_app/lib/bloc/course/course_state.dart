@@ -1,5 +1,3 @@
-import 'package:flutter_app/models/course_model.dart';
-
 abstract class CourseState {}
 
 class CourseInitial extends CourseState{}
@@ -7,15 +5,15 @@ class CourseInitial extends CourseState{}
 class CourseLoading extends CourseState{} 
 
 class AllCourseLoaded extends CourseState {
-  final List<AllCourseModel> course;
+  final List<String> courses;
 
-  AllCourseLoaded(this.course);
+  AllCourseLoaded(this.courses);
 }
 
 class MyCourseLoaded extends CourseState {
-  final List<AllCourseModel> course;
+  final List<String> courses;
 
-  MyCourseLoaded(this.course);
+  MyCourseLoaded(this.courses);
 }
 
 class AddingCourse extends CourseState {}

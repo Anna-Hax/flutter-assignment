@@ -4,17 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_app/bloc/course/course_bloc.dart';
 import 'package:flutter_app/bloc/course/course_state.dart';
 
-class ChooseCoursesScreen extends StatelessWidget {
-  const ChooseCoursesScreen({super.key});
+class SeeMyCoursesScreen extends StatelessWidget {
+  const SeeMyCoursesScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
      WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<CourseBloc>().add(AllCourseRequested());
+      context.read<CourseBloc>().add(MyCourseRequested());
     });
     return Scaffold(
       backgroundColor: Colors.grey[50],
-      appBar: AppBar(title: const Text('All Courses')),
+      appBar: AppBar(title: const Text('My Courses')),
       body: BlocConsumer<CourseBloc, CourseState>(
         listener: (context, state) {
           if (state is CourseError) {
@@ -30,10 +30,11 @@ class ChooseCoursesScreen extends StatelessWidget {
         builder: (context, state) {
           if (state is CourseLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is AllCourseLoaded) {
+          } else if (state is MyCourseLoaded) {
             final List<String> courses = state.courses;
+
             if (courses.isEmpty) {
-              return const Center(child: Text("There are no courses available."));
+              return const Center(child: Text("You haven't enrolled in any courses yet."));
             }
 
             return ListView.builder(
@@ -47,7 +48,8 @@ class ChooseCoursesScreen extends StatelessWidget {
                   child: ListTile(
                     leading: Icon(Icons.book, color: Colors.teal[400]),
                     title: Text(course,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),  
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                    
                   ),
                 );
               },
