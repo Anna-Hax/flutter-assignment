@@ -13,4 +13,5 @@ func RegisterRoutes(router *gin.Engine) {
 	router.POST("/course/create", handlers.CreateCourse)
 	router.POST("/course/user/get", handlers.FetchMyCourse)
 	router.POST("/course/get", handlers.FetchAllCourse)
+	router.POST("/course/user/delete", handlers.DeleteMyCourse)
 }

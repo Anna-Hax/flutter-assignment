@@ -24,3 +24,6 @@ class CourseError extends CourseState {
   final String message;
   CourseError(this.message);
 }
+
+class RemovingCourse extends CourseState{}
+class RemovedCourse extends CourseState{}

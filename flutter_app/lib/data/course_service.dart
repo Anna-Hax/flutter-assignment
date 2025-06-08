@@ -14,12 +14,6 @@ class CourseService {
       final prefs = await SharedPreferences.getInstance();
       final storedUserId = prefs.getInt('id') ?? userId;
 
-      if (storedUserId == null) {
-        _logger.e("User ID is null — cannot add course.");
-        throw Exception("User ID is missing.");
-      }
-
-      _logger.i("Attempting to add course: $course for user ID: $storedUserId");
 
       final response = await _dio.post(
         'http://192.168.1.7:8080/course/user/create',
@@ -28,16 +22,11 @@ class CourseService {
           "course": course,
         },
       );
-
-      _logger.i("Response Status: ${response.statusCode}");
-      _logger.i("Response Data: ${response.data}");
-
       if (response.statusCode != 200) {
         _logger.e("Failed to add course. Status code: ${response.statusCode}, Body: ${response.data}");
         throw Exception("Course not added. Try again.");
       }
 
-      _logger.i("Course '$course' added successfully for user $storedUserId.");
     } catch (error, stackTrace) {
       _logger.e("Exception while adding course", error: error, stackTrace: stackTrace);
       rethrow;
@@ -76,6 +65,30 @@ class CourseService {
       }
       final List<dynamic> data = response.data;
       return data.cast<String>();
+    } catch (error, stackTrace) {
+      _logger.e("Error occurred", error: error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  Future<String> removeMyCourse({required String course}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getInt('id');
+
+    try {
+      final response = await _dio.post(
+        'http://192.168.1.7:8080/course/user/delete',
+        data: {
+          "user_id": userId,
+          "course": course
+        }
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception("Course can't be deleted");
+      }
+      final String data = response.data;
+      return data;
     } catch (error, stackTrace) {
       _logger.e("Error occurred", error: error, stackTrace: stackTrace);
       rethrow;

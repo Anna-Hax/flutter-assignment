@@ -20,6 +20,15 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
         emit(CourseError("Adding Course Error!"));
       }
     });
+    on<AllCourseRequested>((event, emit) async {
+      emit(CourseLoading());
+      try {
+        final courseNames = await courseService.fetchAllCourse();
+        emit(AllCourseLoaded(courseNames));
+      } catch (error) {
+        emit(CourseError("Problem in Fetching your courses"));
+      }
+    });
     on<MyCourseRequested>((event, emit) async {
       emit(CourseLoading());
       final prefs = await SharedPreferences.getInstance();
@@ -32,15 +41,16 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
         emit(CourseError("Problem in Fetching your courses"));
       }
     });
-    on<AllCourseRequested>((event, emit) async {
-      emit(CourseLoading());
+   
+    on<RemoveCourse>((event, emit) async {
+      emit(RemovingCourse());
       try {
-        final courseNames = await courseService.fetchAllCourse();
-        emit(AllCourseLoaded(courseNames));
+        // ignore: unused_local_variable
+        final courseNames = await courseService.removeMyCourse(course: event.course);
+        emit(RemovedCourse());
       } catch (error) {
         emit(CourseError("Problem in Fetching your courses"));
       }
     });
-
   }
 }

@@ -70,6 +70,7 @@ class ChooseCoursesScreen extends StatelessWidget {
         duration: const Duration(seconds: 3),
       ),
     );
+    context.read<CourseBloc>().add(AllCourseRequested());
   }
 
   @override

@@ -9,5 +9,8 @@ class AddCourse extends CourseEvent{
   AddCourse(this.course);
 }
 
-class RemoveCourse extends CourseEvent{}
+class RemoveCourse extends CourseEvent{
+  final String course;
+  RemoveCourse(this.course);
+}
 
