@@ -45,11 +45,11 @@ func FetchMyCourse(c *gin.Context) {
         c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
         return
     }
-	var mycourses []string
-	for _, element := range courses {
-		mycourses = append(mycourses, element.Course)
-	}
-    c.JSON(http.StatusOK, mycourses)
+	//var mycourses []string
+	//for _, element := range courses {
+	//	mycourses = append(mycourses, element.Course)
+	//}
+    c.JSON(http.StatusOK, courses)
 }
 
 
@@ -59,11 +59,11 @@ func FetchAllCourse(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	} else {
-		var allcourses []string
-		for _, element := range courses {
-			allcourses = append(allcourses, element.Course)
-		}
-    	c.JSON(http.StatusOK, allcourses)
+		//var allcourses []string
+		//for _, element := range courses {
+		//	allcourses = append(allcourses, element.Course)
+		//}
+    	c.JSON(http.StatusOK, courses)
 	}
 
 	

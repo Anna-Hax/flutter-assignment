@@ -7,13 +7,13 @@ class CourseService {
 
   //get Courses
   
-  Future<void> addCourse({required String course}) async {
+  Future<void> addMyCourse({required String course}) async {
     final prefs = await SharedPreferences.getInstance();
-    final token = prefs.getString('token');
+    final userId = prefs.getInt('id');
   
-    final response = await _dio.post('http://192.168.1.7:8080/course/add',
+    final response = await _dio.post('http://127.0.0.1:8080/course/user/create',
       data: {
-        "token": token,
+        "user_id": userId,
         "course": course
       },
     );
@@ -25,7 +25,19 @@ class CourseService {
 
   Future<AllCourseModel> fetchAllCourse({required String course}) async {
   
-    final response = await _dio.post('http://192.168.1.7:8080/course/get_all');
+    final response = await _dio.post('http://192.168.1.7:8080/course/get');
+
+    if (response.statusCode != 200) {
+      throw Exception("Courses can't be fetched");
+    } else {
+      final model = AllCourseModel.fromJson(response.data);
+      return model;
+    }
+  }
+
+  Future<AllCourseModel> fetchMyCourse({required String course}) async {
+  
+    final response = await _dio.post('http://192.168.1.7:8080/course/user/get');
 
     if (response.statusCode != 200) {
       throw Exception("Courses can't be fetched");

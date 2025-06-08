@@ -7,8 +7,8 @@ import (
 )
 
 func RegisterRoutes(router *gin.Engine) {
-    router.POST("/signup", handlers.Signup)
-    router.POST("/login", handlers.Login)
+    router.POST("/auth/signup", handlers.Signup)
+    router.POST("/auth/login", handlers.Login)
 	router.POST("/course/user/create", handlers.CreateMyCourse)
 	router.POST("/course/create", handlers.CreateCourse)
 	router.POST("/course/user/get", handlers.FetchMyCourse)

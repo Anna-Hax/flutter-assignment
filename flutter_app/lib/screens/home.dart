@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/bloc/auth/auth_bloc.dart';
 import 'package:flutter_app/bloc/auth/auth_event.dart';
+import 'package:flutter_app/screens/see_courses.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 
@@ -81,9 +82,10 @@ class HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
                   children: [
+                    SizedBox(width: 12),
                     Expanded(
                       child: _buildStatCard(
-                        "Enrolled",
+                        "Enrolled Courses",
                         "5",
                         Icons.school,
                         Colors.green,
@@ -91,20 +93,11 @@ class HomeScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 12),
                     Expanded(
-                      child:                       _buildStatCard(
-                        "In Progress",
+                      child: _buildStatCard(
+                        "TotalCourses",
                         "3",
                         Icons.play_arrow,
                         Colors.orange,
-                      ),
-                    ),
-                    SizedBox(width: 12),
-                    Expanded(
-                      child:                       _buildStatCard(
-                        "Completed",
-                        "2",
-                        Icons.check,
-                        Colors.blue,
                       ),
                     ),
                   ],
@@ -150,8 +143,9 @@ class HomeScreen extends StatelessWidget {
                                 "Browse Courses",
                                 Icons.search,
                                 Colors.purple,
-                                () {
-                                  // Navigate to course catalog
+                                () { 
+                                    Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context) => SeeCoursesScreen()));
                                 },
                               ),
                               _buildActionCard(

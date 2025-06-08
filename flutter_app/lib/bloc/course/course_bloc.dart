@@ -11,7 +11,7 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
       emit(AddingCourse());
       try{
         // ignore: unused_local_variable
-        final courseModel = await courseService.addCourse(course: event.course);
+        final courseModel = await courseService.addMyCourse(course: event.course);
         emit(CourseAdded());
       } catch (error) {
         emit(CourseError("Adding Course Error!"));
