@@ -19,7 +19,7 @@ func CreateMyCourse(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, course)
+	c.JSON(http.StatusOK, course.Course)
 }
 
 func CreateCourse(c *gin.Context) {
@@ -36,6 +36,7 @@ func CreateCourse(c *gin.Context) {
 
 	c.JSON(http.StatusOK, course)
 }
+
 
 func FetchMyCourse(c *gin.Context) {
     user_id := c.GetHeader("user_id")

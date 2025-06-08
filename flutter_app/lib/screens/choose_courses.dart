@@ -7,11 +7,77 @@ import 'package:flutter_app/bloc/course/course_state.dart';
 class ChooseCoursesScreen extends StatelessWidget {
   const ChooseCoursesScreen({super.key});
 
+  void _showEnrollmentDialog(BuildContext context, String courseName) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          title: const Text(
+            'Enroll in Course',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          content: Text(
+            'Do you want to enroll in "$courseName"?',
+            style: const TextStyle(fontSize: 16),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+              },
+              child: Text(
+                'No',
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                _enrollInCourse(context, courseName);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal[400],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              child: const Text(
+                'Yes',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _enrollInCourse(BuildContext context, String courseName) {
+    context.read<CourseBloc>().add(AddCourse(courseName));
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Successfully enrolled in "$courseName"!'),
+        backgroundColor: Colors.green[400],
+        behavior: SnackBarBehavior.floating,
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-     WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<CourseBloc>().add(AllCourseRequested());
     });
+    
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(title: const Text('All Courses')),
@@ -46,8 +112,18 @@ class ChooseCoursesScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                   child: ListTile(
                     leading: Icon(Icons.book, color: Colors.teal[400]),
-                    title: Text(course,
-                        style: const TextStyle(fontWeight: FontWeight.bold)),  
+                    title: Text(
+                      course,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey[400],
+                      size: 16,
+                    ),
+                    onTap: () {
+                      _showEnrollmentDialog(context, course);
+                    },
                   ),
                 );
               },

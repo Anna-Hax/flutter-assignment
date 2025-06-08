@@ -10,9 +10,11 @@ class CourseBloc extends Bloc<CourseEvent, CourseState>{
   CourseBloc(this.courseService) : super(CourseInitial()){
     on<AddCourse>((event, emit) async {
       emit(AddingCourse());
+      final prefs = await SharedPreferences.getInstance();
+      final int? userId = prefs.getInt('id');
       try{
         // ignore: unused_local_variable
-        final courseModel = await courseService.addMyCourse(course: event.course);
+        final courseModel = await courseService.addMyCourse(course: event.course, userId: userId);
         emit(CourseAdded());
       } catch (error) {
         emit(CourseError("Adding Course Error!"));
